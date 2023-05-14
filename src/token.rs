@@ -12,6 +12,16 @@ pub enum TokenType {
     // Operators
     ASSIGN,
     PLUS,
+    MINUS,
+    BANG,
+    ASTERISK,
+    SLASH,
+
+    LT,
+    GT,
+
+    EQ,
+    NotEq,
 
     // Delimiters
     COMMA,
@@ -25,11 +35,21 @@ pub enum TokenType {
     // Keywords
     FUNCTION,
     LET,
+    TRUE,
+    FALSE,
+    IF,
+    ELSE,
+    RETURN,
 }
 
 static KEYWORDS: phf::Map<&'static str, TokenType> = phf_map! {
     "fn" => TokenType::FUNCTION,
     "let" => TokenType::LET,
+    "true" => TokenType::TRUE,
+    "false" => TokenType::FALSE,
+    "if" => TokenType::IF,
+    "else" => TokenType::ELSE,
+    "return" => TokenType::RETURN,
 };
 
 pub fn lookup_ident(ident: &str) -> TokenType {
@@ -45,6 +65,14 @@ impl TokenType {
             TokenType::INT => "INT",
             TokenType::ASSIGN => "=",
             TokenType::PLUS => "+",
+            TokenType::MINUS => "-",
+            TokenType::BANG => "!",
+            TokenType::ASTERISK => "*",
+            TokenType::SLASH => "/",
+            TokenType::LT => "<",
+            TokenType::GT => ">",
+            TokenType::EQ => "==",
+            TokenType::NotEq => "!=",
             TokenType::COMMA => ",",
             TokenType::SEMICOLON => ";",
             TokenType::LPAREN => "(",
@@ -53,6 +81,11 @@ impl TokenType {
             TokenType::RBRACE => "}",
             TokenType::FUNCTION => "FUNCTION",
             TokenType::LET => "LET",
+            TokenType::TRUE => "TRUE",
+            TokenType::FALSE => "FALSE",
+            TokenType::IF => "IF",
+            TokenType::ELSE => "ELSE",
+            TokenType::RETURN => "RETURN",
         }
     }
 }
