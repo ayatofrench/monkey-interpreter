@@ -1,10 +1,11 @@
+use anyhow::Result;
 use std::io::{self, Write};
 
-use crate::{lexer::Lexer, token::TokenType};
+use crate::{lexer::Lexer, token::Token};
 
 const PROMPT: &str = ">>";
 
-pub fn start() {
+pub fn start() -> Result<()> {
     let mut input = String::new();
 
     loop {
@@ -13,13 +14,13 @@ pub fn start() {
 
         io::stdin().read_line(&mut input).unwrap();
 
-        let mut lexer = Lexer::new(&input);
-        let mut tok = lexer.next_token();
+        let mut lexer = Lexer::new(input.clone().into());
+        let mut tok = lexer.next_token()?;
 
-        while tok.token_type != TokenType::EOF {
+        while tok != Token::EOF {
             println!("{:?}", tok);
 
-            tok = lexer.next_token();
+            tok = lexer.next_token()?;
         }
     }
 }
